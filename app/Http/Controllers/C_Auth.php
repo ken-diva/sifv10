@@ -10,13 +10,13 @@ class C_Auth extends Controller
 
   public function index()
   {
-    return view('base', ['title' => 'SIF | Login']);
-    // if (session()->has('username')) {
-    //     // return view('/dashboard', ['title' => 'Dashboard']);
-    //     return redirect('/sekre/dashboard');
-    // }
+    if (session()->has('username')) {
+      // return view('/dashboard', ['title' => 'Dashboard']);
+      return redirect('/sdm/dashboard');
+    }
+    return view('auth.login', ['title' => 'SIF | Login']);
 
-    // return view('auth.login', ['title' => 'SIF | Login']);
+    // return view('index', ['title' => 'SIF | Login']);
   }
 
   public function login(Request $request)
@@ -35,7 +35,7 @@ class C_Auth extends Controller
       session(['username' => $username]);
       session(['password' => $password]);
       session()->save();
-      return view('base');
+      return view('index');
     }
   }
 
