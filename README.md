@@ -7,7 +7,7 @@ Di webhost, aplikasinya bernama _sifv8_ tapi developmentnya pakai laravel versi 
 TO DO LIST 🔖
 
 -   Tes di webhost
--   Fixing Controller untuk dashboard
+-   Buat chart di dashboard
 
 DONE ✅
 
@@ -15,3 +15,4 @@ DONE ✅
 -   Halaman base (starter)
 -   Halaman login
 -   Login
+-   Halaman dashboard

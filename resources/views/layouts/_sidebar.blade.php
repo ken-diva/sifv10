@@ -9,7 +9,7 @@
       {{-- Sekretariat --}}
       <ul class="left-menu list-unstyled" id="side-menu">
         <li class="menu-title">Sekretariat</li>
-        <li><a href="#"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="/sekre/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
         <li><a href="#"><i class="mdi mdi-note-multiple"></i><span>Notula</span></a></li>
         <li><a href="#"><i class="mdi mdi-folder-open"></i><span>Surat Tugas</span></a></li>
         <li><a href="#"><i class="mdi mdi-folder-open"></i><span>Surat Keputusan</span></a></li>

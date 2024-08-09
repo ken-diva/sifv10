@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\C_Auth;
+use App\Http\Controllers\C_Sdm;
+use App\Http\Controllers\C_Sekre;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +29,8 @@ Route::controller(C_Sdm::class)->group(function () {
     Route::get('/sdm/profile-dosen/{name}', 'profile_dosen');
     Route::get('/sdm/data-tpa', 'table_tpa');
     Route::get('/sdm/profile-tpa/{name}/{unitname}/{employmentstatus}', 'profile_tpa');
+});
+
+Route::controller(C_Sekre::class)->group(function () {
+    Route::get('/sekre/dashboard', 'index');
 });
