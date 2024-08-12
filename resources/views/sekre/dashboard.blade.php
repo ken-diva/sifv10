@@ -1,8 +1,5 @@
 @extends('layouts.base')
 @section('content')
-  <!-- ============================================================== -->
-  <!-- Start right Content here -->
-  <!-- ============================================================== -->
   <div class="main-content">
 
     <div class="page-content">
@@ -12,7 +9,7 @@
         <div class="row">
           <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">Dashboard Sekpim</h4>
+              <h4 class="mb-sm-0">{{ $title }}</h4>
 
               @include('layouts._breadcrumb')
 
@@ -50,7 +47,7 @@
                 <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                   <div>
                     <p class="text-muted text-truncate mb-2">Jumlah Notula</p>
-                    <h5 class="mb-0">95</h5>
+                    <h5 class="mb-0">0</h5>
                   </div>
                 </div>
               </div>
@@ -59,7 +56,7 @@
                 <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                   <div>
                     <p class="text-muted text-truncate mb-2">Jumlah Surat Tugas</p>
-                    <h5 class="mb-0">335</h5>
+                    <h5 class="mb-0">{{ $total_st }}</h5>
                   </div>
                 </div>
               </div>
@@ -67,7 +64,7 @@
                 <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                   <div>
                     <p class="text-muted text-truncate mb-2">Jumlah SK</p>
-                    <h5 class="mb-0">87</h5>
+                    <h5 class="mb-0">{{ $total_sk }}</h5>
                   </div>
                 </div>
               </div>
@@ -88,74 +85,100 @@
           </div>
         </div>
 
-        {{-- chart --}}
+        {{-- chart surat tugas --}}
         <div class="row">
           <div class="col-xl-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title mb-0">Basic Column Charts</h4>
-              </div><!-- end card header -->
-
-              <div class="card-body">
-                <div id="column_chart" data-colors='["--bs-danger", "--bs-primary", "--bs-success"]' class="apex-charts"
-                  dir="ltr"></div>
-              </div><!-- end card-body -->
-            </div><!-- end card -->
-          </div>
-          <!-- end col -->
-
-        </div>
-
-        {{-- testing --}}
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title mb-0">Testing Apex</h4>
-              </div><!-- end card header -->
+                <h4 class="card-title mb-0">Data Persebaran Surat Tugas</h4>
+              </div>
 
               <div class="card-body">
                 <div id="chart"></div>
-              </div><!-- end card-body -->
-            </div><!-- end card -->
+              </div>
+            </div>
           </div>
-          <!-- end col -->
+          <!-- end chart -->
 
+          {{-- chart surat keputusan --}}
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title mb-0">Data Persebaran Surat Keputusan</h4>
+                </div>
+
+                <div class="card-body">
+                  <div id="chart2"></div>
+                </div>
+              </div>
+            </div>
+            <!-- end chart -->
+
+          </div>
         </div>
-        <!-- end row -->
       </div>
-      <!-- container-fluid -->
+
+      @include('layouts._footer')
     </div>
-    <!-- End Page-content -->
+    <!-- end main content-->
 
-    @include('layouts._footer')
-  </div>
-  <!-- end main content-->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script>
-    options = {
-      chart: {
-        type: 'bar'
-      },
-      series: [{
-        data: [{
-          x: 'category A',
-          y: 10
-        }, {
-          x: 'category B',
-          y: 18
-        }, {
-          x: 'category C',
-          y: 13
-        }]
-      }]
-    }
+    <script>
+      const barlabels = @json($kode_dosen);
+      const barcount_st = @json($st_dosen);
+      const barcount_sk = @json($sk_dosen);
+      const count_barlabels = barlabels.length;
 
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
+      console.log(count_barlabels);
 
-    chart.render();
-  </script>
+      options = {
+        chart: {
+          type: 'bar'
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ['#0bb82b'],
+        series: [{
+          name: "Total ST",
+          data: barcount_st
+        }],
+        xaxis: {
+          categories: barlabels,
+          tickAmount: count_barlabels / 4,
+        },
 
-  {{-- @include('layouts._apexchart') --}}
-@endsection
+      }
+
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+      chart.render();
+    </script>
+
+    <script>
+      options = {
+        chart: {
+          type: 'bar'
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        colors: ['#0bb82b'],
+        series: [{
+          name: "Total SK",
+          data: barcount_sk
+        }],
+        xaxis: {
+          categories: barlabels,
+          tickAmount: count_barlabels / 4,
+        },
+
+      }
+
+      var chart = new ApexCharts(document.querySelector("#chart2"), options);
+
+      chart.render();
+    </script>
+  @endsection
