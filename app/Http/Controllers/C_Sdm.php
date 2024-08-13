@@ -15,84 +15,83 @@ class C_Sdm extends Controller
 
   public function index()
   {
-    // $total_dosen = 0;
-    // $jumlah_dosen_perprodi = array(0, 0, 0, 0, 0, 0, 0, 0);
-    // $jumlah_jfa = array(0, 0, 0, 0, 0);
+    $total_dosen = 0;
+    $jumlah_dosen_perprodi = array(0, 0, 0, 0, 0, 0, 0, 0);
+    $jumlah_jfa = array(0, 0, 0, 0, 0);
 
-    // // get data
-    // // kalau pakai session, ada 500 | session error :(
-    // // $data = Http::withToken(session('token'))->get($this->url_api_dosen)->body();
+    // get data
+    // kalau pakai session, ada 500 | session error :(
+    // $data = Http::withToken(session('token'))->get($this->url_api_dosen)->body();
 
-    // // jadi get datanya pakai cara ini
-    // // get token
-    // $response = Http::asForm()->post('https://gateway.telkomuniversity.ac.id/issueauth', [
-    //   'username' => session('username'),
-    //   'password' => session('password'),
-    // ]);
+    // jadi get datanya pakai cara ini
+    // get token
+    $response = Http::asForm()->post('https://gateway.telkomuniversity.ac.id/issueauth', [
+      'username' => session('username'),
+      'password' => session('password'),
+    ]);
 
-    // $data = Http::withToken($response['token'])->get($this->url_api_dosen)->body();
+    $data = Http::withToken($response['token'])->get($this->url_api_dosen)->body();
 
-    // // hitung jumlah perprodi
-    // foreach (json_decode($data) as $value) {
-    //   $total_dosen += 1;
-    //   switch ($value->studyprogramname) {
-    //     case 'S1 Informatika':
-    //       $jumlah_dosen_perprodi[0] += 1;
-    //       break;
-    //     case 'S1 Teknologi Informasi':
-    //       $jumlah_dosen_perprodi[1] += 1;
-    //       break;
-    //     case 'S1 Rekayasa Perangkat Lunak':
-    //       $jumlah_dosen_perprodi[2] += 1;
-    //       break;
-    //     case 'S1 Data Sains':
-    //       $jumlah_dosen_perprodi[3] += 1;
-    //       break;
-    //     case 'S1 Informatika PJJ':
-    //       $jumlah_dosen_perprodi[4] += 1;
-    //       break;
-    //     case 'S2 Informatika':
-    //       $jumlah_dosen_perprodi[5] += 1;
-    //       break;
-    //     case 'S2 Ilmu Forensik':
-    //       $jumlah_dosen_perprodi[6] += 1;
-    //       break;
-    //     case 'S3 Informatika':
-    //       $jumlah_dosen_perprodi[7] += 1;
-    //       break;
-    //   }
-    // }
+    // hitung jumlah perprodi
+    foreach (json_decode($data) as $value) {
+      $total_dosen += 1;
+      switch ($value->studyprogramname) {
+        case 'S1 Informatika':
+          $jumlah_dosen_perprodi[0] += 1;
+          break;
+        case 'S1 Teknologi Informasi':
+          $jumlah_dosen_perprodi[1] += 1;
+          break;
+        case 'S1 Rekayasa Perangkat Lunak':
+          $jumlah_dosen_perprodi[2] += 1;
+          break;
+        case 'S1 Data Sains':
+          $jumlah_dosen_perprodi[3] += 1;
+          break;
+        case 'S1 Informatika PJJ':
+          $jumlah_dosen_perprodi[4] += 1;
+          break;
+        case 'S2 Informatika':
+          $jumlah_dosen_perprodi[5] += 1;
+          break;
+        case 'S2 Ilmu Forensik':
+          $jumlah_dosen_perprodi[6] += 1;
+          break;
+        case 'S3 Informatika':
+          $jumlah_dosen_perprodi[7] += 1;
+          break;
+      }
+    }
 
-    // // hitung jumlah per jfa
-    // foreach (json_decode($data) as $value) {
-    //   switch ($value->academicfuncposition) {
-    //     case 'GB':
-    //       $jumlah_jfa[0] += 1;
-    //       break;
-    //     case 'LK':
-    //       $jumlah_jfa[1] += 1;
-    //       break;
-    //     case 'L':
-    //       $jumlah_jfa[2] += 1;
-    //       break;
-    //     case 'NJFA':
-    //       $jumlah_jfa[3] += 1;
-    //       break;
-    //     case 'AA':
-    //       $jumlah_jfa[4] += 1;
-    //       break;
-    //   }
-    // }
+    // hitung jumlah per jfa
+    foreach (json_decode($data) as $value) {
+      switch ($value->academicfuncposition) {
+        case 'GB':
+          $jumlah_jfa[0] += 1;
+          break;
+        case 'LK':
+          $jumlah_jfa[1] += 1;
+          break;
+        case 'L':
+          $jumlah_jfa[2] += 1;
+          break;
+        case 'NJFA':
+          $jumlah_jfa[3] += 1;
+          break;
+        case 'AA':
+          $jumlah_jfa[4] += 1;
+          break;
+      }
+    }
 
-    // return view('sdm.dashboard', [
-    //   // just for active menu selector
-    //   'title' => 'SDM | Dashboard',
-    //   'barcount' => $jumlah_dosen_perprodi,
-    //   'piecount' => $jumlah_jfa,
-    //   'total_dosen' => $total_dosen,
-    // ]);
+    return view('sdm.dashboard', [
+      'title' => 'Dashboard SDM',
+      'jumlah_dosen_perprodi' => $jumlah_dosen_perprodi,
+      'jumlah_jfa' => $jumlah_jfa,
+      'total_dosen' => $total_dosen,
+    ]);
 
-    return view('sdm.dashboard');
+    // return view('sdm.dashboard');
   }
 
   public function table_dosen()

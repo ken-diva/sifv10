@@ -21,7 +21,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-icon">
-              <i class="fas fa-cart-plus fs-14 text-muted"></i>
+              <i class="fas fa-archive fs-14 text-muted"></i>
             </div>
             <h4 class="card-title mb-0">Data Sekretariat</h4>
             {{-- <div class="dropdown card-addon">
@@ -149,7 +149,6 @@
           categories: barlabels,
           tickAmount: count_barlabels / 4,
         },
-
       }
 
       var chart = new ApexCharts(document.querySelector("#chart"), options);

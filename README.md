@@ -7,7 +7,7 @@ Di webhost, aplikasinya bernama _sifv8_ tapi developmentnya pakai laravel versi 
 TO DO LIST 🔖
 
 -   Tes di webhost
--   Buat chart di dashboard
+-   ganti apex ke chartjs aja, karena ada bug (font color ngga kelihat di pie chart)
 
 DONE ✅
 
@@ -16,3 +16,4 @@ DONE ✅
 -   Halaman login
 -   Login
 -   Halaman dashboard
+-   Dashboard sekre sdm done

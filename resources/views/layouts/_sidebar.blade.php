@@ -21,7 +21,7 @@
       {{-- SDM --}}
       <ul class="left-menu list-unstyled" id="side-menu">
         <li class="menu-title">SDM</li>
-        <li><a href="#"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
+        <li><a href="/sdm/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
         <li><a href="#"><i class="mdi mdi-account-box-multiple"></i><span>Data Dosen</span></a></li>
         <li><a href="#"><i class="mdi mdi-account-box-multiple-outline"></i><span>Data TPA</span></a>
         </li>
