@@ -24,22 +24,6 @@
               <i class="fas fa-archive fs-14 text-muted"></i>
             </div>
             <h4 class="card-title mb-0">Data Sekretariat</h4>
-            {{-- <div class="dropdown card-addon">
-              <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="mdi mdi-dots-sidebar"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end">
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-                <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item">Action</a>
-              </div>
-            </div> --}}
           </div>
           <div class="card-body">
             <div class="row">
@@ -47,7 +31,7 @@
                 <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                   <div>
                     <p class="text-muted text-truncate mb-2">Jumlah Notula</p>
-                    <h5 class="mb-0">0</h5>
+                    <h5 class="mb-0">{{ $total_notula }}</h5>
                   </div>
                 </div>
               </div>
@@ -76,108 +60,117 @@
           <div class="col-xl-6">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Basic</h3>
+                <h3 class="card-title">Filter Periode</h3>
               </div>
               <div class="card-body">
-                <p class="text-muted mb-0">filter disini</p>
+                <form action="/sekre/dashboard/filtered" method="POST">
+                  @csrf
+                  <div class="d-flex">
+                    <div class="col-sm-5 col-lg-5">
+                      <label>Dari</label>
+                      <input type="date" class="form-control" name="periode_mulai" value="{{ $tgl_mulai }}"
+                        required>
+                    </div>
+                    <div class="col-sm-5 col-lg-1"></div>
+                    <div class="col-sm-5 col-lg-5">
+                      <label>sampai</label>
+                      <input type="date" class="form-control" name="periode_selesai" value="{{ $tgl_selesai }}"
+                        required>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="col-sm-5 col-lg-6">
+                    <button class="btn btn-warning">Refresh data</button>
+                  </div>
               </div>
+              </form>
             </div>
-          </div>
-        </div>
-
-        {{-- chart surat tugas --}}
-        <div class="row">
-          <div class="col-xl-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title mb-0">Data Persebaran Surat Tugas</h4>
-              </div>
-
-              <div class="card-body">
-                <div id="chart"></div>
-              </div>
-            </div>
-          </div>
-          <!-- end chart -->
-
-          {{-- chart surat keputusan --}}
-          <div class="row">
-            <div class="col-xl-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title mb-0">Data Persebaran Surat Keputusan</h4>
-                </div>
-
-                <div class="card-body">
-                  <div id="chart2"></div>
-                </div>
-              </div>
-            </div>
-            <!-- end chart -->
-
           </div>
         </div>
       </div>
 
-      @include('layouts._footer')
+      {{-- chart surat tugas --}}
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title mb-0">Data Persebaran Surat Tugas</h4>
+            </div>
+
+            <div class="card-body">
+              <canvas id="chart-st"></canvas>
+            </div>
+          </div>
+        </div>
+        <!-- end chart -->
+
+        {{-- chart surat keputusan --}}
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title mb-0">Data Persebaran Surat Keputusan</h4>
+            </div>
+
+            <div class="card-body">
+              <canvas id="chart-sk"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end chart -->
     </div>
-    <!-- end main content-->
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    @include('layouts._footer')
+  </div>
+  <!-- end main content-->
 
-    <script>
-      const barlabels = @json($kode_dosen);
-      const barcount_st = @json($st_dosen);
-      const barcount_sk = @json($sk_dosen);
-      const count_barlabels = barlabels.length;
+  <script>
+    const barlabels = @json($kode_dosen);
+    const barcount_st = @json($st_dosen);
+    const barcount_sk = @json($sk_dosen);
 
-      console.log(count_barlabels);
+    const ctx = document.getElementById('chart-st');
 
-      options = {
-        chart: {
-          type: 'bar'
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        colors: ['#0bb82b'],
-        series: [{
-          name: "Total ST",
-          data: barcount_st
-        }],
-        xaxis: {
-          categories: barlabels,
-          tickAmount: count_barlabels / 4,
-        },
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: barlabels,
+        datasets: [{
+          label: 'Surat Tugas',
+          data: barcount_st,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       }
+    });
+  </script>
 
-      var chart = new ApexCharts(document.querySelector("#chart"), options);
+  <script>
+    const ctx2 = document.getElementById('chart-sk');
 
-      chart.render();
-    </script>
-
-    <script>
-      options = {
-        chart: {
-          type: 'bar'
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        colors: ['#0bb82b'],
-        series: [{
-          name: "Total SK",
-          data: barcount_sk
-        }],
-        xaxis: {
-          categories: barlabels,
-          tickAmount: count_barlabels / 4,
-        },
-
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: barlabels,
+        datasets: [{
+          label: 'Surat Keputusan',
+          data: barcount_sk,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       }
-
-      var chart = new ApexCharts(document.querySelector("#chart2"), options);
-
-      chart.render();
-    </script>
-  @endsection
+    });
+  </script>
+@endsection

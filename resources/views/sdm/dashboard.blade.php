@@ -20,25 +20,27 @@
         <!-- end page title -->
 
         <div class="row">
-          <div class="col-xl-6">
+          <div class="col-xl-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Jumlah dosen per-prodi</h3>
               </div>
               <div class="card-body">
                 <h6 class="text-muted mb-0">Total dosen saat ini: {{ $total_dosen }}</h6>
+                <canvas id="chart-dosen"></canvas>
               </div>
-              <div id="chart"></div>
             </div>
           </div>
+        </div>
 
+        <div class="row">
           <div class="col-xl-6">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">JFA Dosen</h3>
               </div>
               <div class="card-body">
-                <div id="chart2"></div>
+                <canvas id="pie-jfa"></canvas>
               </div>
             </div>
           </div>
@@ -49,8 +51,6 @@
       @include('layouts._footer')
     </div>
     <!-- end main content-->
-
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
       const barlabels = [
@@ -64,24 +64,26 @@
         'S3 Informatika',
       ];
       const bardata = @json($jumlah_dosen_perprodi);
-      var options = {
-        chart: {
-          type: 'bar'
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        series: [{
-          name: "Total",
-          data: bardata
-        }],
-        xaxis: {
-          categories: barlabels,
-        },
-      };
+      const ctx = document.getElementById('chart-dosen');
 
-      var chart = new ApexCharts(document.querySelector("#chart"), options);
-      chart.render();
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: barlabels,
+          datasets: [{
+            label: 'Jumlah dosen per-prodi',
+            data: bardata,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
     </script>
 
     <script>
@@ -93,16 +95,25 @@
         'AA',
       ];
       const piedata = @json($jumlah_jfa);
-      var options = {
-        series: piedata,
-        chart: {
-          width: 400,
-          type: 'pie',
-        },
-        labels: pielabels,
-      };
+      const ctx2 = document.getElementById('pie-jfa');
 
-      var chart2 = new ApexCharts(document.querySelector("#chart2"), options);
-      chart2.render();
+      new Chart(ctx2, {
+        type: 'pie',
+        data: {
+          labels: barlabels,
+          datasets: [{
+            label: 'JFA',
+            data: piedata,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
     </script>
   @endsection

@@ -8,7 +8,7 @@ NOTE
 TO DO LIST 🔖
 
 -   Tes di webhost
--   ganti apex ke chartjs aja, karena ada bug (font color ngga kelihat di pie chart)
+-   datatable surat tugas done, tapi belum maksimal (perlu diedit dikit2)
 
 DONE ✅
 
@@ -18,3 +18,6 @@ DONE ✅
 -   Login
 -   Halaman dashboard
 -   Dashboard sekre sdm done
+-   ganti apex ke chartjs
+-   datatable surat tugas
+-   filter surat tugas ama notula
