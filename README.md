@@ -2,7 +2,8 @@
 
 NOTE
 
-Di webhost, aplikasinya bernama _sifv8_ tapi developmentnya pakai laravel versi 10. Belum bisa fix dari tanggal _31.07.2024_
+-   Nama aplikasinya _sifv8_ tapi developmentnya pakai laravel versi 10. Belum bisa fix dari tanggal _31.07.2024_
+-   Kena hack (slot gacor) tgl _12.08.2024_
 
 TO DO LIST 🔖
 
