@@ -11,11 +11,9 @@ class C_Auth extends Controller
   public function index()
   {
     if (session()->has('username')) {
-      // return view('/dashboard', ['title' => 'Dashboard']);
       return redirect('/');
     }
     return view('auth.login', ['title' => 'SIF | Login']);
-    // return view('index');
   }
 
   public function login(Request $request)

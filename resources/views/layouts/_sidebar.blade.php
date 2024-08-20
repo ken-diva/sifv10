@@ -10,7 +10,11 @@
       <ul class="left-menu list-unstyled" id="side-menu">
         <li class="menu-title">Sekretariat</li>
         <li><a href="/sekre/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
-        <li><a href="#"><i class="mdi mdi-note-multiple"></i><span>Notula</span></a></li>
+        <li><a href="#" active><i class="mdi mdi-note-multiple"></i><span>Notula</span></a>
+        </li>
+        <li>
+          <a href="pages-starter.html"><i class="fas fa-pager"></i> <span>Starter Page</span></a>
+        </li>
         <li><a href="/sekre/st/"><i class="mdi mdi-folder-open"></i><span>Surat Tugas</span></a></li>
         <li><a href="#"><i class="mdi mdi-folder-open"></i><span>Surat Keputusan</span></a></li>
         <li><a href="#"><i class="mdi mdi-book-education"></i><span>Buku Ajar</span></a></li>

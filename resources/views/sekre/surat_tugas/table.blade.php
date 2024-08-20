@@ -9,14 +9,9 @@
         <div class="row">
           <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-              <h4 class="mb-sm-0">Base</h4>
+              <h4 class="mb-sm-0">{{ $title }}</h4>
 
-              <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                  <li class="breadcrumb-item"><a href="javascript: void(0);">Datatable</a></li>
-                  <li class="breadcrumb-item active">Base</li>
-                </ol>
-              </div>
+              @include('layouts._breadcrumb')
 
             </div>
           </div>
@@ -27,13 +22,10 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Basic datatable</h4>
+                <h4 class="card-title">Data Surat Tugas</h4>
               </div>
               <div class="card-body">
-                <p class="text-muted"><strong>Datatables</strong> has most features enabled by default, so all you need to
-                  do to use it with your own tables is to call the construction function: <code>$().DataTable()</code>.
-                  Searching, ordering and paging goodness will be immediately added to the table, as shown in this
-                  example.</p>
+                <p class="text-muted">Total Surat Tugas: {{ $total_st }}</p>
 
                 <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive"
                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -52,9 +44,9 @@
                       <tr>
                         <td width="5%">{{ $loop->iteration }}</td>
                         <td width="15%">{{ $st['no_surat'] }}</td>
-                        <td width='50%'>{{ $st['deskripsi'] }}</td>
+                        <td width='55%'>{{ $st['deskripsi'] }}</td>
                         <td style="text-align: center">{{ $st['periode_mulai'] }}</td>
-                        <td>
+                        <td style="text-align: center">
                           @if (filter_var($st['evidence'], FILTER_VALIDATE_URL))
                             <a href="{{ $st['evidence'] }}" target="_blank">
                               <button class="btn btn-primary">
@@ -63,12 +55,12 @@
                             </a>
                           @else
                             <a href="#">
-                              <button class="btn btn-secondary" title="Link tidak valid" disabled><i
+                              <button class="btn btn-secondary" data-bs-toggle="tooltip" title="Link tidak tersedia"><i
                                   class="fas fa-unlink "></i></button>
                             </a>
                           @endif
                         </td>
-                        <td>
+                        <td style="text-align: center">
                           <a href="/sekre/st/detail/{{ $st['deskripsi'] }}" class="text-decoration-none">
                             <button class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                               title="Detail">

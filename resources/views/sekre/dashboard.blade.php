@@ -28,29 +28,35 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-4">
-                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                  <div>
-                    <p class="text-muted text-truncate mb-2">Jumlah Notula</p>
-                    <h5 class="mb-0">{{ $total_notula }}</h5>
+                <a href="" class="text-reset notification-item">
+                  <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
+                    <div>
+                      <p class="text-muted text-truncate mb-2">Jumlah Notula</p>
+                      <h5 class="mb-0">{{ $total_notula }}</h5>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
 
               <div class="col-sm-4">
-                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                  <div>
-                    <p class="text-muted text-truncate mb-2">Jumlah Surat Tugas</p>
-                    <h5 class="mb-0">{{ $total_st }}</h5>
+                <a href="/sekre/st/" class="text-reset notification-item">
+                  <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
+                    <div>
+                      <p class="text-muted text-truncate mb-2">Jumlah Surat Tugas</p>
+                      <h5 class="mb-0">{{ $total_st }}</h5>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
               <div class="col-sm-4">
-                <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
-                  <div>
-                    <p class="text-muted text-truncate mb-2">Jumlah SK</p>
-                    <h5 class="mb-0">{{ $total_sk }}</h5>
+                <a href="" class="text-reset notification-item">
+                  <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
+                    <div>
+                      <p class="text-muted text-truncate mb-2">Jumlah SK</p>
+                      <h5 class="mb-0">{{ $total_sk }}</h5>
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>

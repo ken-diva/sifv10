@@ -9,6 +9,7 @@ TO DO LIST 🔖
 
 -   Tes di webhost
 -   datatable surat tugas done, tapi belum maksimal (perlu diedit dikit2)
+-   "Active" untuk sidebar belum nemu gimana caranya
 
 DONE ✅
 
@@ -21,3 +22,4 @@ DONE ✅
 -   ganti apex ke chartjs
 -   datatable surat tugas
 -   filter surat tugas ama notula
+-   detail surat tugas

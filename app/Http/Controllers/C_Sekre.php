@@ -145,7 +145,7 @@ class C_Sekre extends Controller
     }
 
     return view('sekre.dashboard', [
-      'title'         => 'Sekre | Dashboard',
+      'title'         => 'Dashboard',
       'total_st'      => $total_st,
       'kode_dosen'    => $kode_dosen,
       'st_dosen'      => $st_dosen,
@@ -156,6 +156,8 @@ class C_Sekre extends Controller
       'last_sync'     => env('LAST_SYNC'),
       'tgl_mulai'     => '2017-01-01',
       'tgl_selesai'   => date('Y-m-d'),
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Dashboard',
     ]);
   }
 
@@ -326,6 +328,9 @@ class C_Sekre extends Controller
       'last_sync'     => env('LAST_SYNC'),
       'tgl_mulai'     => '2017-01-01',
       'tgl_selesai'   => date('Y-m-d'),
+      'title' => 'Surat Tugas',
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Data Surat Tugas',
     ]);
   }
 
@@ -420,6 +425,9 @@ class C_Sekre extends Controller
       'title' => 'Sekre | Surat Tugas',
       'surat_tugas' => $surat_tugas,
       'daftar_anggota' => $daftar_anggota,
+      'title' => 'Surat Tugas',
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Detail Surat Tugas',
     ]);
   }
 }
