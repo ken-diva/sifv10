@@ -9,18 +9,25 @@
       {{-- Sekretariat --}}
       <ul class="left-menu list-unstyled" id="side-menu">
         <li class="menu-title">Sekretariat</li>
-        <li><a href="/sekre/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a></li>
-        <li><a href="#" active><i class="mdi mdi-note-multiple"></i><span>Notula</span></a>
+        <li class="{{ $title == 'Dashboard Sekretariat' ? 'mm-active' : '' }}">
+          <a href="/sekre/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a>
         </li>
-        <li>
-          <a href="pages-starter.html"><i class="fas fa-pager"></i> <span>Starter Page</span></a>
+        <li class="{{ $title == 'Notula' ? 'mm-active' : '' }}">
+          <a href="#" active><i class="mdi mdi-note-multiple"></i><span>Notula</span></a>
         </li>
-        <li><a href="/sekre/st/"><i class="mdi mdi-folder-open"></i><span>Surat Tugas</span></a></li>
-        <li><a href="#"><i class="mdi mdi-folder-open"></i><span>Surat Keputusan</span></a></li>
-        <li><a href="#"><i class="mdi mdi-book-education"></i><span>Buku Ajar</span></a></li>
-        <li><a href="#"><i class="mdi mdi-library"></i><span>Peminjaman Ruang
+        <li class="{{ $title == 'Surat Tugas' ? 'mm-active' : '' }}">
+          <a href="/sekre/st/"><i class="mdi mdi-folder-open"></i><span>Surat Tugas</span></a>
+        </li>
+        <li class="{{ $title == 'Surat Keputusan' ? 'mm-active' : '' }}">
+          <a href="/sekre/sk/"><i class="mdi mdi-folder-open"></i><span>Surat Keputusan</span></a>
+        </li>
+        <li class="{{ $title == 'Buku Ajar' ? 'mm-active' : '' }}">
+          <a href="#"><i class="mdi mdi-book-education"></i><span>Buku Ajar</span></a>
+        </li>
+        {{-- <li class="{{ $title == 'Peminjaman Ruang Rapat' ? 'mm-active' : '' }}"><a href="#"><i class="mdi mdi-library"></i><span>Peminjaman Ruang
               Rapat</span></a>
-        </li>
+        </li> --}}
+
       </ul>
       {{-- SDM --}}
       <ul class="left-menu list-unstyled" id="side-menu">

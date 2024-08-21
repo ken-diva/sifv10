@@ -35,6 +35,16 @@ class C_Sekre extends Controller
     $this->EXCEL_INDEX_ST_KD = 7; // index cell KODE DOSEN di excel surat tugas (st)
     $this->EXCEL_INDEX_NAMA_KD = 8; // index cell NAMA YANG DITUGASKAN di excel surat tugas (st)
     $this->EXCEL_INDEX_EVIDENCE = 9;
+
+    $this->EXCEL_INDEX_NO_SK = 1;
+    $this->EXCEL_INDEX_EVIDENCE = 2;
+    $this->EXCEL_INDEX_JUDUL_SK = 3;
+    $this->EXCEL_INDEX_TGL_PMULAI = 4;
+    $this->EXCEL_INDEX_TGL_PSELESAI = 5;
+    $this->EXCEL_INDEX_TGL_PENETAPAN = 6;
+    $this->EXCEL_INDEX_JABATAN = 7;
+    $this->EXCEL_INDEX_NAMA_KD = 8; // index cell NAMA YANG DITUGASKAN di excel SK (st)
+    $this->EXCEL_INDEX_SK_KD = 9; // index cell KODE DOSEN di excel SK (st)
   }
 
   public function index()
@@ -145,7 +155,7 @@ class C_Sekre extends Controller
     }
 
     return view('sekre.dashboard', [
-      'title'         => 'Dashboard',
+      'title'         => 'Dashboard Sekretariat',
       'total_st'      => $total_st,
       'kode_dosen'    => $kode_dosen,
       'st_dosen'      => $st_dosen,
@@ -280,7 +290,7 @@ class C_Sekre extends Controller
     }
 
     return view('sekre.dashboard', [
-      'title'         => 'Sekre | Dashboard',
+      'title'         => 'Dashboard Sekretariat',
       'total_st'      => $total_st,
       'kode_dosen'    => $kode_dosen,
       'st_dosen'      => $st_dosen,
@@ -291,6 +301,8 @@ class C_Sekre extends Controller
       'last_sync'     => env('LAST_SYNC'),
       'tgl_mulai'     => $request->periode_mulai,
       'tgl_selesai'   => $request->periode_selesai,
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Dashboard',
     ]);
   }
 
@@ -322,58 +334,14 @@ class C_Sekre extends Controller
     }
 
     return view('sekre.surat_tugas.table', [
-      'title'         => 'Sekre | Surat Tugas',
+      'title'         => 'Surat Tugas',
       'surat_tugas'   => $surat_tugas,
       'total_st'      => $total_st,
       'last_sync'     => env('LAST_SYNC'),
       'tgl_mulai'     => '2017-01-01',
       'tgl_selesai'   => date('Y-m-d'),
-      'title' => 'Surat Tugas',
       'bread_item' => 'Sekretariat',
       'bread_item_active' => 'Data Surat Tugas',
-    ]);
-  }
-
-  public function st_filtered(Request $request)
-  {
-    $periode_mulai = strtotime($request->periode_mulai);
-    $periode_selesai = strtotime($request->periode_selesai);
-
-    // get the data (surat tugas) from excel -------------------------------------
-    $range = 'Sekpim_Surat_Tugas';
-    $response = $this->service->spreadsheets_values->get($this->sheetID, $range);
-    $EXCEL_VALUE = $response->getValues();
-
-    // hitung st + get st --------------------------------------------
-    $surat_tugas = [];
-    $total_st = 0;
-    for ($i = 2; $i < sizeof($EXCEL_VALUE); $i++) {
-      // if for skipping 'Tahun 20xx'
-      // 1 itu index untuk skipping the header
-      if (sizeof($EXCEL_VALUE[$i]) > $this->EXCEL_INDEX_ST_KD) {
-        // filter the data pakai periode mulai, 5 = index periode mulai
-        if ($periode_mulai <= strtotime($EXCEL_VALUE[$i][5]) && $periode_selesai >= strtotime($EXCEL_VALUE[$i][5])) {
-          if ($EXCEL_VALUE[$i][1] != null) {
-            $total_st += 1;
-            $surat_tugas[] = [
-              'no_surat'  => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_NO_SURAT],
-              'deskripsi' => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_DESKRIPSI],
-              'mitra'     => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_MITRA],
-              'evidence'  => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_EVIDENCE],
-              'periode_mulai'     => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL_PMULAI],
-            ];
-          }
-        }
-      }
-    }
-
-    return view('sekre.surat_tugas.table', [
-      'title'         => 'Sekre | Surat Tugas',
-      'surat_tugas'   => $surat_tugas,
-      'total_st'      => $total_st,
-      'last_sync'     => env('LAST_SYNC'),
-      'tgl_mulai'     => $request->periode_mulai,
-      'tgl_selesai'   => $request->periode_selesai,
     ]);
   }
 
@@ -422,12 +390,113 @@ class C_Sekre extends Controller
     }
 
     return view('sekre.surat_tugas.detail', [
-      'title' => 'Sekre | Surat Tugas',
+      'title' => 'Surat Tugas',
       'surat_tugas' => $surat_tugas,
       'daftar_anggota' => $daftar_anggota,
-      'title' => 'Surat Tugas',
       'bread_item' => 'Sekretariat',
       'bread_item_active' => 'Detail Surat Tugas',
+    ]);
+  }
+
+  public function tes()
+  {
+    return view('sekre.surat_tugas.tes');
+  }
+
+  public function sk()
+  {
+    // get the data (SK) from excel -------------------------------------
+    $range = 'Sekpim_SK';
+    $response = $this->service->spreadsheets_values->get($this->sheetID, $range);
+    $EXCEL_VALUE = $response->getValues();
+
+    // hitung sk + get sk --------------------------------------------
+    $surat_keputusan = [];
+    $total_sk = 0;
+    for ($i = 2; $i < sizeof($EXCEL_VALUE); $i++) {
+      // if for skipping 'Tahun 20xx'
+      // 1 itu index untuk skipping the header
+      if (sizeof($EXCEL_VALUE[$i]) > $this->EXCEL_INDEX_SK_KD) {
+        if ($EXCEL_VALUE[$i][1] != null) {
+          $total_sk += 1;
+          $surat_keputusan[] = [
+            'no_surat'  => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_NO_SK],
+            'judul_sk'  => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JUDUL_SK],
+            'evidence'  => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_EVIDENCE],
+            'periode_mulai'     => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL_PMULAI],
+          ];
+        }
+      }
+    }
+
+    return view('sekre.surat_keputusan.table', [
+      'title'             => 'Surat Keputusan',
+      'surat_keputusan'   => $surat_keputusan,
+      'total_sk'          => $total_sk,
+      'last_sync'         => env('LAST_SYNC'),
+      'tgl_mulai'         => '2017-01-01',
+      'tgl_selesai'       => date('Y-m-d'),
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Data Surat Keputusan',
+    ]);
+  }
+
+  public function sk_detail($judul_sk)
+  {
+
+    // get the data (SK) from excel -------------------------------------
+    $range = 'Sekpim_SK';
+    $response = $this->service->spreadsheets_values->get($this->sheetID, $range);
+    $EXCEL_VALUE = $response->getValues();
+
+    // search sk + get sk --------------------------------------------
+    $found = false;
+    $surat_keputusan = [];
+    $daftar_anggota = [];
+    for ($i = 2; $i < sizeof($EXCEL_VALUE); $i++) {
+      // if for skipping 'Tahun 20xx'
+      if (sizeof($EXCEL_VALUE[$i]) > $this->EXCEL_INDEX_SK_KD) {
+        // preg_replace => for cleaning up the string
+        if (preg_replace('/\s+/', '', $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JUDUL_SK]) == preg_replace('/\s+/', '', $judul_sk)) {
+
+          $surat_keputusan[] = [
+            'no_surat'          => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_NO_SK],
+            'evidence'          => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_EVIDENCE],
+            'judul_sk'          => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JUDUL_SK],
+            'periode_mulai'     => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL_PMULAI],
+            'periode_selesai'   => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL_PSELESAI],
+            'tgl_penetapan'     => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL_PENETAPAN],
+            'jabatan'           => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JABATAN],
+            'nama_lengkap'      => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_NAMA_KD],
+            'kode_dosen'        => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_SK_KD],
+          ];
+
+          for ($x = $i + 1; $EXCEL_VALUE[$x][$this->EXCEL_INDEX_JUDUL_SK] == null; $x++) {
+            $daftar_anggota[] = [
+              'jabatan'       => $EXCEL_VALUE[$x][$this->EXCEL_INDEX_JABATAN],
+              'nama_lengkap'  => $EXCEL_VALUE[$x][$this->EXCEL_INDEX_NAMA_KD],
+              'kode_dosen'    => $EXCEL_VALUE[$x][$this->EXCEL_INDEX_SK_KD],
+            ];
+          }
+
+          $found = true;
+        }
+      }
+
+      if ($found) {
+        break;
+      }
+    }
+
+    // dd($daftar_anggota);
+
+
+    return view('sekre.surat_keputusan.detail', [
+      'title'             => 'Surat Keputusan',
+      'surat_keputusan'   => $surat_keputusan,
+      'daftar_anggota'    => $daftar_anggota,
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Data Surat Keputusan',
     ]);
   }
 }

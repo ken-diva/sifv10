@@ -22,33 +22,33 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Data Surat Tugas</h4>
+                <h4 class="card-title">Data Surat Keputusan</h4>
               </div>
               <div class="card-body">
-                <p class="text-muted">Total Surat Tugas: {{ $total_st }}</p>
+                <p class="text-muted">Total Surat Keputusan: {{ $total_sk }}</p>
 
                 <table id="datatable" class="table table-hover table-bordered table-striped dt-responsive"
                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>No. Surat</th>
-                      <th>Deskripsi</th>
-                      <th style="text-align: center">Tgl Penetapan</th>
+                      <th>No. SK</th>
+                      <th>Judul SK</th>
+                      <th style="text-align: center">Periode Mulai</th>
                       <th style="text-align: center">Evidence</th>
                       <th style="text-align: center">#</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($surat_tugas as $st)
+                    @foreach ($surat_keputusan as $sk)
                       <tr>
                         <td width="5%">{{ $loop->iteration }}.</td>
-                        <td width="15%">{{ $st['no_surat'] }}</td>
-                        <td width='55%'>{{ $st['deskripsi'] }}</td>
-                        <td style="text-align: center">{{ $st['periode_mulai'] }}</td>
-                        <td style="text-align: center">
-                          @if (filter_var($st['evidence'], FILTER_VALIDATE_URL))
-                            <a href="{{ $st['evidence'] }}" target="_blank">
+                        <td>{{ $sk['no_surat'] }}</td>
+                        <td width='50%'>{{ ucwords(strtolower($sk['judul_sk'])) }}</td>
+                        <td style="text-align: center">{{ $sk['periode_mulai'] }}</td>
+                        <td width='8%' style="text-align: center">
+                          @if (filter_var($sk['evidence'], FILTER_VALIDATE_URL))
+                            <a href="{{ $sk['evidence'] }}" target="_blank">
                               <button class="btn btn-primary">
                                 <i class="fas fa-link"></i>
                               </button>
@@ -61,8 +61,8 @@
                             </a>
                           @endif
                         </td>
-                        <td style="text-align: center">
-                          <a href="/sekre/st/detail/{{ $st['deskripsi'] }}" class="text-decoration-none">
+                        <td width='5%'>
+                          <a href="/sekre/sk/detail/{{ $sk['judul_sk'] }}" class="text-decoration-none">
                             <button class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
                               title="Detail"><i class=" far fa-eye "></i>
                             </button>

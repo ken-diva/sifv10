@@ -28,7 +28,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-4">
-                <a href="" class="text-reset notification-item">
+                <a href="/sekre/notula/" class="text-reset notification-item">
                   <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                     <div>
                       <p class="text-muted text-truncate mb-2">Jumlah Notula</p>
@@ -49,7 +49,7 @@
                 </a>
               </div>
               <div class="col-sm-4">
-                <a href="" class="text-reset notification-item">
+                <a href="/sekre/sk/" class="text-reset notification-item">
                   <div class="d-flex justify-content-between align-content-end shadow-lg p-3">
                     <div>
                       <p class="text-muted text-truncate mb-2">Jumlah SK</p>

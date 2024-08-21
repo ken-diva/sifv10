@@ -32,9 +32,12 @@ Route::controller(C_Sdm::class)->group(function () {
 });
 
 Route::controller(C_Sekre::class)->group(function () {
+    Route::get('/tes', 'tes');
     Route::get('/sekre/dashboard', 'index');
     Route::post('/sekre/dashboard/filtered', 'index_filtered');
     Route::get('/sekre/st', 'st');
     Route::post('/sekre/st/filtered', 'st_filtered');
     Route::get('/sekre/st/detail/{deskripsi}', 'st_detail');
+    Route::get('/sekre/sk', 'sk');
+    Route::get('/sekre/sk/detail/{deskripsi}', 'sk_detail');
 });
