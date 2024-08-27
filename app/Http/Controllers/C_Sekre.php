@@ -26,6 +26,7 @@ class C_Sekre extends Controller
     // $this->url_api_dosen = 'https://gateway.telkomuniversity.ac.id/b5f34c2db0d36b68ef987a1a23f50ccb/7/0/0/0/0/0/dosen';
     // $this->url_api_tpa = 'https://gateway.telkomuniversity.ac.id/b5f34c2db0d36b68ef987a1a23f50ccb/7/0/0/0/0/0/tpa';
 
+    // surat tugas
     $this->EXCEL_INDEX_NO_SURAT = 1;
     $this->EXCEL_INDEX_DESKRIPSI = 2;
     $this->EXCEL_INDEX_MITRA = 3;
@@ -36,6 +37,7 @@ class C_Sekre extends Controller
     $this->EXCEL_INDEX_NAMA_KD = 8; // index cell NAMA YANG DITUGASKAN di excel surat tugas (st)
     $this->EXCEL_INDEX_EVIDENCE = 9;
 
+    // surat keputusan
     $this->EXCEL_INDEX_NO_SK = 1;
     $this->EXCEL_INDEX_EVIDENCE = 2;
     $this->EXCEL_INDEX_JUDUL_SK = 3;
@@ -45,6 +47,12 @@ class C_Sekre extends Controller
     $this->EXCEL_INDEX_JABATAN = 7;
     $this->EXCEL_INDEX_NAMA_KD = 8; // index cell NAMA YANG DITUGASKAN di excel SK (st)
     $this->EXCEL_INDEX_SK_KD = 9; // index cell KODE DOSEN di excel SK (st)
+
+    // notula
+    $this->EXCEL_INDEX_TGL = 1;
+    $this->EXCEL_INDEX_JENIS_RAPAT = 2;
+    $this->EXCEL_INDEX_AGENDA = 3;
+    $this->EXCEL_INDEX_EVIDENCE = 15;
   }
 
   public function index()
@@ -496,7 +504,87 @@ class C_Sekre extends Controller
       'surat_keputusan'   => $surat_keputusan,
       'daftar_anggota'    => $daftar_anggota,
       'bread_item' => 'Sekretariat',
-      'bread_item_active' => 'Data Surat Keputusan',
+      'bread_item_active' => 'Detail Surat Keputusan',
+    ]);
+  }
+
+  public function notula()
+  {
+    // get the data from excel -------------------------------------
+    $range = 'Sekpim_Risalah_Rapat';
+    $response = $this->service->spreadsheets_values->get($this->sheetID, $range);
+
+    $EXCEL_VALUE = $response->getValues();
+
+    // hitung notula + get notula --------------------------------------------
+    $notula = [];
+    $total_notula = 0;
+    // iterate the data
+    for ($i = 1; $i < sizeof($EXCEL_VALUE); $i++) {
+      // if for skipping 'Tahun 20xx'
+      if (sizeof($EXCEL_VALUE[$i]) > 1) {
+        // 1 disini itu index untuk skipping the header
+        if ($EXCEL_VALUE[$i][1] != null) {
+          $total_notula += 1;
+          $notula[] = [
+            'tanggal'       => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL],
+            'jenis_rapat'   => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JENIS_RAPAT],
+            'agenda'        => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_AGENDA],
+            'evidence'      => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_EVIDENCE],
+          ];
+        }
+      }
+    }
+
+    return view('sekre.notula.table', [
+      'title'    => 'Notula',
+      'notula'   => $notula,
+      'total_notula' => $total_notula,
+      'last_sync' => env('LAST_SYNC'),
+      'tgl_mulai'     => '2017-01-01',
+      'tgl_selesai'   => date('Y-m-d'),
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Data Notula',
+    ]);
+  }
+
+  public function notula_detail($agenda)
+  {
+    // get the data (SK) from excel -------------------------------------
+    $range = 'Sekpim_Risalah_Rapat';
+    $response = $this->service->spreadsheets_values->get($this->sheetID, $range);
+    $EXCEL_VALUE = $response->getValues();
+
+    // search sk + get sk --------------------------------------------
+    $found = false;
+    $notula = [];
+    for ($i = 1; $i < sizeof($EXCEL_VALUE); $i++) {
+      // if for skipping 'Tahun 20xx'
+      if (sizeof($EXCEL_VALUE[$i]) > 1) {
+        // preg_replace => for cleaning up the string
+        if (preg_replace('/\s+/', '', $EXCEL_VALUE[$i][$this->EXCEL_INDEX_AGENDA]) == preg_replace('/\s+/', '', $agenda)) {
+          // dd('yes');
+          $notula[] = [
+            'tanggal'       => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_TGL],
+            'jenis_rapat'   => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_JENIS_RAPAT],
+            'agenda'        => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_AGENDA],
+            'evidence'      => $EXCEL_VALUE[$i][$this->EXCEL_INDEX_EVIDENCE],
+          ];
+
+          $found = true;
+        }
+      }
+
+      if ($found) {
+        break;
+      }
+    }
+
+    return view('sekre.notula.detail', [
+      'title'  => 'Notula',
+      'notula' => $notula,
+      'bread_item' => 'Sekretariat',
+      'bread_item_active' => 'Detail Notula',
     ]);
   }
 }

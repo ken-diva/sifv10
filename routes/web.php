@@ -40,4 +40,6 @@ Route::controller(C_Sekre::class)->group(function () {
     Route::get('/sekre/st/detail/{deskripsi}', 'st_detail');
     Route::get('/sekre/sk', 'sk');
     Route::get('/sekre/sk/detail/{deskripsi}', 'sk_detail');
+    Route::get('/sekre/notula', 'notula');
+    Route::get('/sekre/notula/detail/{deskripsi}', 'notula_detail');
 });

@@ -9,8 +9,8 @@ TO DO LIST 🔖
 
 -   Tes di webhost
 -   datatable surat tugas done, tapi belum maksimal (perlu diedit dikit2)
--   "Active" untuk sidebar belum nemu gimana caranya
 -   filter surat tugas, sk ama notula
+-   ada bug di detail, beberapa ada yg ngga muncul (perlu pakai primary key)
 
 DONE ✅
 
@@ -19,8 +19,9 @@ DONE ✅
 -   Halaman login
 -   Login
 -   Halaman dashboard
--   Dashboard sekre sdm done
+-   Dashboard sekre sdm
 -   ganti apex ke chartjs
 -   table dan detail surat tugas
 -   sidebar active fix
 -   table dan detail sk
+-   table dan detail notula

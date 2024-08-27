@@ -13,7 +13,7 @@
           <a href="/sekre/dashboard/"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a>
         </li>
         <li class="{{ $title == 'Notula' ? 'mm-active' : '' }}">
-          <a href="#" active><i class="mdi mdi-note-multiple"></i><span>Notula</span></a>
+          <a href="/sekre/notula/" active><i class="mdi mdi-note-multiple"></i><span>Notula</span></a>
         </li>
         <li class="{{ $title == 'Surat Tugas' ? 'mm-active' : '' }}">
           <a href="/sekre/st/"><i class="mdi mdi-folder-open"></i><span>Surat Tugas</span></a>
