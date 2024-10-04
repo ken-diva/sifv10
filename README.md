@@ -1,6 +1,6 @@
 # Live Here [sif.telkomuniversity.ac.id](https://sif.telkomuniversity.ac.id) 🚀
 
-NOTE
+NOTE 📓
 
 -   Nama aplikasinya _sifv8_ tapi developmentnya pakai laravel versi 10. Belum bisa fix dari tanggal _31.07.2024_
 -   Kena hack (slot gacor) tgl _12.08.2024_

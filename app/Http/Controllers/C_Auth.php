@@ -32,7 +32,8 @@ class C_Auth extends Controller
       session(['username' => $username]);
       session(['password' => $password]);
       session()->save();
-      return view('index');
+      // ubah sesuai user (nantinya)
+      return redirect('/sekre/dashboard');
     }
   }
 

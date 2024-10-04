@@ -201,6 +201,8 @@ class C_Sdm extends Controller
       'title' => 'SDM | Data TPA',
       'data' => $data,
       'total_tpa' => $total_tpa,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Data TPA',
     ]);
   }
 
@@ -226,10 +228,12 @@ class C_Sdm extends Controller
 
     $masa_kerja = $difference->y . ' tahun, ' . $difference->m . ' bulan, ' . $difference->d . ' hari';
 
-    return view('sdm.tpa.profile', [
+    return view('sdm.tpa.detail', [
       'title' => 'SDM | Profile TPA',
       'data' => $data,
       'masa_kerja' => $masa_kerja,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Detail Data TPA',
     ]);
   }
 }
