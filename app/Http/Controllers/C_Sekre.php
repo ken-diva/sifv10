@@ -52,7 +52,7 @@ class C_Sekre extends Controller
     $this->EXCEL_INDEX_TGL = 1;
     $this->EXCEL_INDEX_JENIS_RAPAT = 2;
     $this->EXCEL_INDEX_AGENDA = 3;
-    $this->EXCEL_INDEX_EVIDENCE = 15;
+    $this->EXCEL_INDEX_EVIDENCE = 9;
   }
 
   public function index()

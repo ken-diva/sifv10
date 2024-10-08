@@ -270,6 +270,9 @@
       </div> <!-- end card-->
     </div>
 
+
+    @include('layouts._footer')
+
   </body>
 
 </html>

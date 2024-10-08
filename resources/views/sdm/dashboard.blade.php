@@ -9,8 +9,7 @@
         <div class="row">
           <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-              {{-- <h4 class="mb-sm-0">{{ $title }}</h4> --}}
-              <h4 class="mb-sm-0">title</h4>
+              <h4 class="mb-sm-0">{{ $title }}</h4>
 
               @include('layouts._breadcrumb')
 
@@ -20,7 +19,7 @@
         <!-- end page title -->
 
         <div class="row">
-          <div class="col-xl-12">
+          <div class="col-md-8">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Jumlah dosen per-prodi</h3>
@@ -31,10 +30,8 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-xl-6">
+          <div class="col-md-4">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">JFA Dosen</h3>

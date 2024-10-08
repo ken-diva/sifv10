@@ -89,9 +89,9 @@ class C_Sdm extends Controller
       'jumlah_dosen_perprodi' => $jumlah_dosen_perprodi,
       'jumlah_jfa' => $jumlah_jfa,
       'total_dosen' => $total_dosen,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Dashboard SDM',
     ]);
-
-    // return view('sdm.dashboard');
   }
 
   public function table_dosen()
@@ -105,10 +105,11 @@ class C_Sdm extends Controller
     $total_dosen = count(json_decode($data));
 
     return view('sdm.dosen.table', [
-      // just for active menu selector
-      'title' => 'SDM | Data Dosen',
+      'title' => 'Data Dosen',
       'data' => $data,
       'total_dosen' => $total_dosen,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Data Dosen',
     ]);
   }
 
@@ -127,12 +128,13 @@ class C_Sdm extends Controller
     $total_dosen = count(json_decode($data));
 
     return view('sdm.dosen.table_filtered', [
-      // just for active menu selector
-      'title' => 'SDM | Data Dosen',
+      'title' => 'Data Dosen',
       'data' => $data,
       'total_dosen' => $total_dosen,
       'jfa' => $jfa,
       'prodi' => $prodi,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Data Dosen',
     ]);
   }
 
@@ -176,11 +178,13 @@ class C_Sdm extends Controller
         break;
     }
 
-    return view('sdm.dosen.profile', [
-      'title' => 'SDM | Profile Dosen',
+    return view('sdm.dosen.detail', [
+      'title' => 'Data Dosen',
       'data' => $data,
       'masa_kerja' => $masa_kerja,
       'jfa' => $jfa,
+      'bread_item' => 'SDM',
+      'bread_item_active' => 'Detail Data Dosen',
     ]);
   }
 
@@ -194,11 +198,9 @@ class C_Sdm extends Controller
     $data = Http::withToken($response['token'])->get($this->url_api_tpa)->body();
 
     $total_tpa = count(json_decode($data));
-    // dd(count(json_decode($data)));
 
     return view('sdm.tpa.table', [
-      // just for active menu selector
-      'title' => 'SDM | Data TPA',
+      'title' => 'Data TPA',
       'data' => $data,
       'total_tpa' => $total_tpa,
       'bread_item' => 'SDM',
@@ -229,7 +231,7 @@ class C_Sdm extends Controller
     $masa_kerja = $difference->y . ' tahun, ' . $difference->m . ' bulan, ' . $difference->d . ' hari';
 
     return view('sdm.tpa.detail', [
-      'title' => 'SDM | Profile TPA',
+      'title' => 'Data TPA',
       'data' => $data,
       'masa_kerja' => $masa_kerja,
       'bread_item' => 'SDM',

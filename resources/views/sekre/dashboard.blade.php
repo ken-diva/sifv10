@@ -126,7 +126,6 @@
       <!-- end chart -->
     </div>
 
-    @include('layouts._footer')
   </div>
   <!-- end main content-->
 
