@@ -25,3 +25,6 @@ DONE ✅
 -   sidebar active fix
 -   table dan detail sk
 -   table dan detail notula
+
+
+---------------- MIGRATE KE FLASK?! -----------------------
